@@ -27,7 +27,7 @@ export class PixelAutoFocusStrategy extends AutoFocusDetectionStrategy {
       0x26201D,   // #1D2026 (R=29, G=32, B=38 -> BGR: B=38, G=32, R=29 -> 0x26201D)
       0x1C170B,   // #1C171B (R=28, G=23, B=27 -> BGR: B=27, G=23, R=28 -> 0x1C170B)
     ],
-    COLOR_TOLERANCE: 0,
+    COLOR_TOLERANCE: 15,
     MATCH_THRESHOLD: 0.3,
     INVALID_PIXEL: 0xFFFFFFFF
   };
@@ -52,12 +52,7 @@ export class PixelAutoFocusStrategy extends AutoFocusDetectionStrategy {
       const windowHeight = rect.bottom - rect.top;
       const zoneX = windowWidth - (PixelAutoFocusStrategy.PIXEL_DETECTION.REFERENCE_WIDTH - PixelAutoFocusStrategy.PIXEL_DETECTION.ZONE.x);
       const zoneY = windowHeight - (PixelAutoFocusStrategy.PIXEL_DETECTION.REFERENCE_HEIGHT - PixelAutoFocusStrategy.PIXEL_DETECTION.ZONE.y);
-      console.log('Zone de détection des pixels:', {
-        x: zoneX,
-        y: zoneY,
-        width: PixelAutoFocusStrategy.PIXEL_DETECTION.ZONE.width,
-        height: PixelAutoFocusStrategy.PIXEL_DETECTION.ZONE.height
-      });
+      
       const zone = {
         x: Math.floor(zoneX),
         y: Math.floor(zoneY),
@@ -130,6 +125,7 @@ export class PixelAutoFocusStrategy extends AutoFocusDetectionStrategy {
             }
           } else {
             for (const targetColor of PixelAutoFocusStrategy.PIXEL_DETECTION.TURN_COLORS) {
+              const test = this.colorsMatch(pixel, targetColor);
               if (this.colorsMatch(pixel, targetColor)) {
                 matchCount++;
                 if (matchCount >= requiredMatches) {
@@ -149,12 +145,15 @@ export class PixelAutoFocusStrategy extends AutoFocusDetectionStrategy {
       const matchRatio = matchCount / totalPixels;
       const turnDetected = matchRatio >= PixelAutoFocusStrategy.PIXEL_DETECTION.MATCH_THRESHOLD;
 
-      SelectObject(memDC, oldBitmap);
-      DeleteObject(bitmap);
-      DeleteDC(memDC);
-      ReleaseDC(hwnd, windowDC);
+  // Log du pourcentage de reconnaissance
+  // console.log(`[PixelAutoFocus] Reconnaissance: ${(matchRatio * 100).toFixed(2)}% (${matchCount}/${totalPixels})`);
 
-      return turnDetected;
+  SelectObject(memDC, oldBitmap);
+  DeleteObject(bitmap);
+  DeleteDC(memDC);
+  ReleaseDC(hwnd, windowDC);
+
+  return turnDetected;
 
     } catch (error) {
       console.error('Erreur detectTurnByPixels:', error);

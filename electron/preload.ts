@@ -15,5 +15,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   toggleAutoFocus: () => ipcRenderer.send('toggle-auto-focus'),
   toggleOrganizer: () => ipcRenderer.send('toggle-organizer'),
   changeOrientation: () => ipcRenderer.send('change-orientation'),
-  setIgnoreMouseEvents: (ignore: boolean) => ipcRenderer.send('set-ignore-mouse-events', ignore)
+  setIgnoreMouseEvents: (ignore: boolean) => ipcRenderer.send('set-ignore-mouse-events', ignore),
+  toggleFocusable: (focusable: boolean) => ipcRenderer.send('toggle-focusable', focusable)
 });

@@ -9,6 +9,7 @@ export interface ElectronAPI {
   toggleOrganizer: () => void;
   changeOrientation: () => void;
   setIgnoreMouseEvents: (ignore: boolean) => void;
+  toggleFocusable: (focusable: boolean) => void;
 }
 
 declare global {

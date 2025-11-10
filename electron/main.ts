@@ -24,6 +24,7 @@ ipcMain.on('save-window-parameters', (event: IpcMainEvent, windowParameters: Win
 ipcMain.on('close-app', () => closeApp());
 ipcMain.handle('load-settings', () => settingsManager.getAll());
 ipcMain.on('save-settings', (event: IpcMainEvent, settings: Settings) => saveSettings(settings));
+ipcMain.on('toggle-focusable', (event: IpcMainEvent, focusable: boolean) => toggleFocusable(focusable));
 ipcMain.on('toggle-auto-focus', () => toggleAndSaveAutoFocus());
 ipcMain.on('toggle-organizer', () => toggleAndSaveOrganizer());
 ipcMain.on('change-orientation', () => changeOrientation());
@@ -64,7 +65,7 @@ function showMainWindow(): void {
     roundedCorners: false,
     hasShadow: false,
     skipTaskbar: true,
-    focusable: false,   
+    focusable: false, 
     icon: path.join(__dirname, 'assets/images/gelutin-icon.png'),
     webPreferences: {
       contextIsolation: true,
@@ -83,6 +84,12 @@ function showMainWindow(): void {
     mainWindow.loadURL('http://localhost:4200');
   } else {
     mainWindow.loadFile(path.join(__dirname, '../../dist/Gelutin/browser/index.html'));
+  }
+}
+
+function toggleFocusable(focusable: boolean): void {
+  if (mainWindow) {
+    mainWindow.setFocusable(focusable);
   }
 }
 

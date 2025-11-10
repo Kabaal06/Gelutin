@@ -68,12 +68,14 @@ export class Home {
    openSettings() {
     this.isSettingsOpen = true;
     (window as any).electronAPI.setIgnoreMouseEvents(false);
+    (window as any).electronAPI.toggleFocusable(true);
     const dialogRef = this.dialog.open(SettingsComponent, {
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.isSettingsOpen = false;
+      (window as any).electronAPI.toggleFocusable(false);
       (window as any).electronAPI.setIgnoreMouseEvents(true);
     });
   }
