@@ -1,0 +1,82 @@
+$containerWidth: 32px;
+$containerHeight: 192px;
+$containerCollapsedHeight: 32px;
+$containerCollapsedWidth: 32px;
+
+.home-container {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  z-index: 1000;
+
+  &.horizontal {
+    flex-direction: column-reverse;
+  }
+}
+
+.buttons-container {
+  background-color: #1d2026;
+  width: $containerWidth;
+  height: $containerHeight;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+
+  &.horizontal {
+    flex-direction: row;
+    width: $containerHeight;
+    height: $containerWidth;
+  }
+
+  &.collapsed {
+    width: $containerCollapsedWidth;
+    height: $containerCollapsedHeight;
+
+    .collapsible-button {
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .divider {
+      width: 0;
+      height: 0;
+      margin: 0;
+      opacity: 0;
+    }
+  }
+
+  mat-icon {
+    color: white;
+  }
+
+  .app-icon-button {
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.1);
+    cursor: grab !important;
+
+    &:active {
+      cursor: grabbing !important;
+    }
+
+    &:hover {
+      img {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .collapsible-button {
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+  }
+
+  button.activated mat-icon {
+    color: #40b2b5;
+  }
+}

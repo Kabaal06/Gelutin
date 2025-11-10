@@ -1,0 +1,34 @@
+<div class="home-container" cdkDrag 
+  [cdkDragFreeDragPosition]="windowParameters()"
+  [class.horizontal]="settingsService.settings()?.isContainerHorizontal"
+  (mouseenter)="onButtonContainerEnter()" (mouseleave)="onButtonContainerLeave()" (cdkDragEnded)="stopDrag($event)">
+
+  <div class="buttons-container" [class.horizontal]="settingsService.settings()?.isContainerHorizontal" [class.collapsed]="isCollapsed">
+
+    <button matIconButton class="app-icon-button" cdkDragHandle (click)="toggleCollapse()">
+      <img src="gelutin-icon.png" alt="Gelutin" />
+    </button>
+
+    <button matIconButton matTooltip="AutoFocus" [class.activated]="settingsService.settings()?.isAutoFocusActivate"
+      (click)="toggleAutoFocus()" class="collapsible-button">
+      <mat-icon fontSet="material-symbols-outlined">center_focus_weak</mat-icon>
+    </button>
+
+    <button matIconButton matTooltip="Organizer" [class.activated]="settingsService.settings()?.isOrganizerActive"
+      (click)="toggleOrganizer()" class="collapsible-button">
+      <mat-icon fontSet="material-symbols-outlined">select_window</mat-icon>
+    </button>
+
+    <button matIconButton (click)="changeOrientation()" class="collapsible-button">
+      <mat-icon fontSet="material-symbols-outlined">rotate_right</mat-icon>
+    </button>
+
+    <button matIconButton matTooltip="Paramètres" (click)="openSettings()" class="collapsible-button">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <button matIconButton (click)="closeApp()" class="collapsible-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{
+  "watch": ["electron/**/*.ts", "src/common/**/*.ts"],
+  "ext": "ts",
+  "ignore": ["electron/**/*.spec.ts", "dist/**", "src/**"],
+  "exec": "npm run electron:compile && electron ./dist/electron/main.js",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

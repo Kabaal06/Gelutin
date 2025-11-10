@@ -1,0 +1,89 @@
+.settings-container {
+    background-color: #1d2026;
+    padding: 1em;
+
+    h2 {
+        margin-bottom: 16px;
+        margin-top: 0;
+        font-size: 1.1rem;
+        color: white;
+    }
+}
+
+.settings-section {
+    margin-bottom: 16px;
+    padding: 16px;
+
+    .full-width {
+        width: 100%;
+    }
+
+    .suffix-button {
+        margin-right: 12px;
+    }
+}
+
+.radio-group {
+    display: flex;
+    gap: 12px;
+
+    mat-radio-button {
+        margin-bottom: 8px;
+    }
+}
+
+.characters-list {
+    max-height: 40vh;
+    overflow-y: auto;
+    padding-top: 8px;
+    padding-right: 8px;
+
+    .character-item {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+
+        .character-name {
+            flex: 2;
+        }
+    }
+}
+
+.shortcuts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .shortcut-item {
+        .shortcut-field {
+            width: 100%;
+        }
+
+        .recording-icon {
+            color: #f44336;
+            animation: pulse 1s infinite;
+        }
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    width: fit-content;
+    margin: auto;
+
+    button {
+        min-width: 120px;
+    }
+}

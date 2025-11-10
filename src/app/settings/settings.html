@@ -1,0 +1,58 @@
+<div class="settings-container">
+    <div class="settings-section">
+        <h2>Divers</h2>
+
+        <label>Mode de détection Auto-Focus</label>
+        <mat-radio-group [(ngModel)]="localSettings.autoFocusMode" class="radio-group">
+            <mat-radio-button value="PIXEL">
+                Par pixels
+            </mat-radio-button>
+            <mat-radio-button value="WINDOW_NAME">
+                Par nom de fenêtre
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="settings-section">
+        <h2>Raccourcis clavier</h2>
+        <div class="shortcuts-list">
+            <div class="shortcut-item">
+                <mat-form-field class="shortcut-field">
+                    <mat-label>Personnage suivant</mat-label>
+                    <input matInput [value]="localSettings.shortcuts.nextCharacter || ''" readonly
+                        (click)="onShortcutClick($event, 'nextCharacter')"
+                        (focus)="startRecordingShortcut('nextCharacter')"
+                        (keydown)="onShortcutKeyDown($event, 'nextCharacter')"
+                        [placeholder]="isRecording('nextCharacter') ? 'Appuyez sur une touche...' : 'Tab'">
+                    <mat-icon matSuffix *ngIf="isRecording('nextCharacter')"
+                        class="recording-icon">fiber_manual_record</mat-icon>
+                    <mat-hint *ngIf="isRecording('nextCharacter')">Échap pour annuler</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="shortcut-item">
+                <mat-form-field class="shortcut-field">
+                    <mat-label>Personnage précédent</mat-label>
+                    <input matInput [value]="localSettings.shortcuts.previousCharacter || ''" readonly
+                        (click)="onShortcutClick($event, 'previousCharacter')"
+                        (focus)="startRecordingShortcut('previousCharacter')"
+                        (keydown)="onShortcutKeyDown($event, 'previousCharacter')"
+                        [placeholder]="isRecording('previousCharacter') ? 'Appuyez sur une touche...' : 'Control+Tab'">
+                    <mat-icon matSuffix *ngIf="isRecording('previousCharacter')"
+                        class="recording-icon">fiber_manual_record</mat-icon>
+                    <mat-hint *ngIf="isRecording('previousCharacter')">Échap pour annuler</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button mat-button color="secondary" (click)="closeSettings()">
+            Annuler
+        </button>
+        <button mat-raised-button color="primary" (click)="saveSettings()">
+            <mat-icon>save</mat-icon>
+            Enregistrer
+        </button>
+    </div>
+</div>
